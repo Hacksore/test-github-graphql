@@ -5,19 +5,20 @@
   "type": "module",
   "scripts": {
     "start": "tsx index.ts",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen-esm --config codegen.yaml"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@graphql-codegen/cli": "4.0.1",
+    "@graphql-codegen/introspection": "4.0.0",
+    "@graphql-codegen/typescript": "4.0.1",
+    "@graphql-codegen/typescript-resolvers": "4.0.1",
     "@octokit/graphql-schema": "^14.19.1",
     "tsx": "^3.12.7",
     "typescript": "^5.1.6",
-    "@graphql-codegen/typescript": "4.0.1",
-    "@graphql-codegen/typescript-resolvers": "4.0.1",
-    "@graphql-codegen/introspection": "4.0.0"
+    "@graphql-codegen/typescript-document-nodes": "4.0.1"
   },
   "dependencies": {
     "@octokit/graphql": "^7.0.0"
