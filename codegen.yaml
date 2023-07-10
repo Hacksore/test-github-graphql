@@ -1,8 +1,13 @@
-verwrite: true
+# codegen.yml
+overwrite: true
 schema: "src/generated/github-schema-loader.ts"
+documents: null
 generates:
   src/generated/graphql.ts:
     plugins:
       - "typescript"
       - "typescript-resolvers"
       - "typescript-document-nodes"
+# Add this block
+require:
+  - ts-node/register
