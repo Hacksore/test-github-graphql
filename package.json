@@ -4,7 +4,7 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "start": "tsx index.ts",
+    "start": "tsx src/index.ts",
     "codegen": "graphql-codegen-esm --config codegen.ts"
   },
   "keywords": [],

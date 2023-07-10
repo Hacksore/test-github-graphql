@@ -1,6 +1,6 @@
-import { GraphqlResponseError, graphql } from "@octokit/graphql";
+import { ContributionsCollection } from "./generated/graphql.js";
+import { graphql } from "@octokit/graphql";
 
-// https://github.com/octokit/graphql.js#typescript
 const graphqlWithAuth = graphql.defaults({
   headers: {
     authorization: `token ${process.env.GITHUB_TOKEN}`,
@@ -8,25 +8,27 @@ const graphqlWithAuth = graphql.defaults({
 });
 
 const GET_USER_QUERY = `
-  query {
-    viewer {
-      login
+query {
+  user (login: "Hacksore"){
+    contributionsCollection {
+      contributionCalendar {
+        totalContributions,
+        weeks {
+          contributionDays {
+            contributionCount
+          }
+        }
+      }
     }
   }
+}
 `;
 
 try {
-  console.log("getting data...")
-
-  const res = await graphqlWithAuth(GET_USER_QUERY);
-
-  console.log("got data:", res.viewer.login)
+  console.log("getting data...");
+  const res: ContributionsCollection = await graphqlWithAuth(GET_USER_QUERY);
+  console.log("res:", res.user.contributionsCollection.contributionCalendar.totalContributions);
 
 } catch (error: any) {
-  if (error instanceof GraphqlResponseError) {
-    console.log("Request failed:", error.request); // { query, variables: {}, headers: { authorization: 'token secret123' } }
-    console.log(error.message); // Field 'bioHtml' doesn't exist on type 'User'
-  } else {
-    // handle non-GraphQL error
-  }
+  console.log("error:", error);
 }

@@ -1,5 +1,14 @@
-query { 
-  viewer { 
-    login
+query {
+  user (login: "Hacksore"){
+    contributionsCollection {
+      contributionCalendar {
+        totalContributions,
+        weeks {
+          contributionDays {
+            contributionCount
+          }
+        }
+      }
+    }
   }
 }
