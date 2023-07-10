@@ -18,12 +18,7 @@ const GET_USER_QUERY = `
 try {
   console.log("getting data...")
 
-  // BRUH: why the fuck i gotta type this manually
-  const res: {
-    viewer: {
-      login: string
-    }
-  } = await graphqlWithAuth(GET_USER_QUERY);
+  const res = await graphqlWithAuth(GET_USER_QUERY);
 
   console.log("got data:", res.viewer.login)
 
