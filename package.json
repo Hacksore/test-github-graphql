@@ -1,0 +1,25 @@
+{
+  "name": "test-github-contrib",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "start": "tsx index.ts",
+    "codegen": "graphql-codegen --config codegen.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@graphql-codegen/cli": "4.0.1",
+    "@octokit/graphql-schema": "^14.19.1",
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.6",
+    "@graphql-codegen/typescript": "4.0.1",
+    "@graphql-codegen/typescript-resolvers": "4.0.1",
+    "@graphql-codegen/introspection": "4.0.0"
+  },
+  "dependencies": {
+    "@octokit/graphql": "^7.0.0"
+  }
+}
