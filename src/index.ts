@@ -7,9 +7,10 @@ const graphqlWithAuth = graphql.defaults({
   },
 });
 
-const GET_USER_QUERY = `
-query {
-  user (login: "Hacksore"){
+// This works but is super fragile
+const GET_USER_CONTRIBUTIONS = `
+query GetContributions ($login: String!) {
+  user (login: $login){
     contributionsCollection {
       contributionCalendar {
         totalContributions,
@@ -26,9 +27,9 @@ query {
 
 try {
   console.log("getting data...");
-  const res: ContributionsCollection = await graphqlWithAuth(GET_USER_QUERY);
-  console.log("res:", res.user.contributionsCollection.contributionCalendar.totalContributions);
+  const res = await graphqlWithAuth<ContributionsCollection>(GET_USER_CONTRIBUTIONS, { login: "Hacksore" });
 
+  console.log("res:", res.user.contributionsCollection.contributionCalendar.totalContributions);
 } catch (error: any) {
   console.log("error:", error);
 }
