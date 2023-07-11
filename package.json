@@ -2,10 +2,12 @@
   "name": "test-github-contrib",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "scripts": {
     "start": "tsx src/index.ts",
-    "codegen": "graphql-codegen-esm --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +25,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.17",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
     "@octokit/graphql": "^7.0.0",
     "graphql": "^16.7.1"
   }

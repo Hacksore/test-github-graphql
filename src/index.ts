@@ -1,35 +1,28 @@
-import { ContributionsCollection } from "./generated/graphql.js";
-import { graphql } from "@octokit/graphql";
+import { GetUserContributionsQuery, GetUserContributions } from "./generated/graphql.js";
+import { githubClient } from "./client.js";
 
-const graphqlWithAuth = graphql.defaults({
-  headers: {
-    authorization: `token ${process.env.GITHUB_TOKEN}`,
-  },
-});
-
-// This works but is super fragile
-const GET_USER_CONTRIBUTIONS = `
-query GetContributions ($login: String!) {
-  user (login: $login){
-    contributionsCollection {
-      contributionCalendar {
-        totalContributions,
-        weeks {
-          contributionDays {
-            contributionCount
-          }
-        }
-      }
+async function getUserContributions() {
+  const result = await githubClient().query<GetUserContributionsQuery>({
+    query: GetUserContributions,
+    variables: {
+      login: "Hacksore"
     }
+  });
+
+  return result;
+}
+
+const main = async () => {
+  try {
+    console.log("getting data...");
+    const contributions = await getUserContributions();
+
+    // This works and if you need to change the type of the data
+    // you mutate the query/get-contribution.ts file and run "npm run codegen" but make sure you have auth
+    console.log(contributions.data.user?.contributionsCollection.contributionCalendar.totalContributions);
+  } catch (error: any) {
+    console.log("error:", error);
   }
-}
-`;
+};
 
-try {
-  console.log("getting data...");
-  const res = await graphqlWithAuth<ContributionsCollection>(GET_USER_CONTRIBUTIONS, { login: "Hacksore" });
-
-  console.log("res:", res.user.contributionsCollection.contributionCalendar.totalContributions);
-} catch (error: any) {
-  console.log("error:", error);
-}
+main();
